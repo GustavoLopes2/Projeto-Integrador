@@ -16,17 +16,10 @@ public class CursoServiceImpl implements CursoService {
     }
 
     @Override
-    public Curso salvar(Curso curso) throws Exception {
-        List<Curso> resultadoListaDeCursos = cursoRepository.findAll();
-        System.out.println(resultadoListaDeCursos);
+    public Curso salvar(Curso curso) {
+        List<Curso> t = cursoRepository.findCursoByNomeDoCurso(curso.getNomeDoCurso());
+        return cursoRepository.save(curso);
 
-        for (int i = 0; i < resultadoListaDeCursos.size(); i++) {
-            if (resultadoListaDeCursos.get(i).getNomeDoCurso().contains(curso.getNomeDoCurso())) {
-                throw new Exception("Esse curso já existe");
-            }
-        }
-
-        return curso;
     }
 
     @Override
