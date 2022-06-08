@@ -21,7 +21,7 @@ public class InstrutorController {
     }
 
     @PostMapping
-    public ResponseEntity<Object> salvarInstrutor(@RequestBody Instrutor instrutor) {
+    public ResponseEntity<Object> salvarInstrutor(@RequestBody Instrutor instrutor) throws Exception {
         Instrutor response = instrutorService.salvar(instrutor);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }

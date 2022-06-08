@@ -1,5 +1,6 @@
 package com.example.projetointegrador.service;
 
+import com.example.projetointegrador.models.Curso;
 import com.example.projetointegrador.models.Instrutor;
 import com.example.projetointegrador.repositories.InstrutorRepository;
 import org.springframework.stereotype.Service;
@@ -16,7 +17,12 @@ public class InstrutorServiceImpl implements InstrutorService{
     }
 
     @Override
-    public Instrutor salvar(Instrutor instrutor) {
+    public Instrutor salvar(Instrutor instrutor) throws Exception {
+
+        List<Instrutor> email = instrutorRepository.findInstrutorByemail(instrutor.getEmail());
+        if(email != null && email.size() > 0) {
+            throw new Exception("O Email " + instrutor.getEmail() + " já foi cadastrado.");
+        }
         return instrutorRepository.save(instrutor);
     }
 

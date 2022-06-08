@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface LaboratorioService {
 
-    Laboratorio salvar(Laboratorio laboratorio);
+    Laboratorio salvar(Laboratorio laboratorio) throws Exception;
 
     Laboratorio editar(Laboratorio laboratorio);
 

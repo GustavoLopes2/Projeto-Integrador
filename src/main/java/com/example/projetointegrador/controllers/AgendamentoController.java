@@ -25,7 +25,7 @@ public class AgendamentoController {
     }
 
     @PostMapping
-    public ResponseEntity<Object> salvarAgendamento(@RequestBody Agendamento agendamento) {
+    public ResponseEntity<Object> salvarAgendamento(@RequestBody Agendamento agendamento) throws Exception {
         Agendamento response = agendamentoService.salvar(agendamento);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
 

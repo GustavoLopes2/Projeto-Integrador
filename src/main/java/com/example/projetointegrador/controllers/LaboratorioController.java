@@ -21,7 +21,7 @@ public class LaboratorioController {
         this.laboratorioService = laboratorioServiceimpl;
     }
     @PostMapping
-    public ResponseEntity<Object> salvarLaboratorio(@RequestBody Laboratorio laboratorio) {
+    public ResponseEntity<Object> salvarLaboratorio(@RequestBody Laboratorio laboratorio) throws Exception {
         Laboratorio response = laboratorioService.salvar(laboratorio);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }

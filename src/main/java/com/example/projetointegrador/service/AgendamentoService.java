@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface AgendamentoService {
 
-    Agendamento salvar(Agendamento agendamento);
+    Agendamento salvar(Agendamento agendamento) throws Exception;
 
     Agendamento editar(Agendamento agendamento);
 

@@ -7,6 +7,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -32,10 +33,10 @@ public class Agendamento {
     private String nomeDoInstrutor;
 
     @Column(name = "dataInicio")
-    private LocalDateTime dataInicio;
+    private LocalDate dataInicio;
 
     @Column(name = "dataFim")
-    private LocalDateTime dataFim;
+    private LocalDate dataFim;
 
     @Column(name = "horarioInicio")
     private String horarioInicio;
