@@ -16,10 +16,12 @@ public class CursoServiceImpl implements CursoService {
     }
 
     @Override
-    public Curso salvar(Curso curso) {
-        List<Curso> t = cursoRepository.findCursoByNomeDoCurso(curso.getNomeDoCurso());
+    public Curso salvar(Curso curso) throws Exception {
+        List<Curso> listaDeCursos = cursoRepository.findCursoByNomeDoCurso(curso.getNomeDoCurso());
+        if(listaDeCursos != null && listaDeCursos.size() > 0) {
+            throw new Exception("O curso " + curso.getNomeDoCurso() + " já foi registrado.");
+        }
         return cursoRepository.save(curso);
-
     }
 
     @Override
