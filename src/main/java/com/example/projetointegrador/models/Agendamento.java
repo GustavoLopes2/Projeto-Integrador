@@ -9,12 +9,13 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Entity
 @Table(name = "agendamento")
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(of = "id_agendamento")
+@EqualsAndHashCode (of = "id_agendamento")
 @Data
 public class Agendamento {
 
@@ -39,10 +40,10 @@ public class Agendamento {
     private LocalDate dataFim;
 
     @Column(name = "horarioInicio")
-    private String horarioInicio;
+    private LocalTime horarioInicio;
 
     @Column(name = "horarioFim")
-    private String horarioFim;
+    private LocalTime horarioFim;
 
     @Column(name = "numeroDoLaboratorio")
     private String numeroDoLaboratorio;
