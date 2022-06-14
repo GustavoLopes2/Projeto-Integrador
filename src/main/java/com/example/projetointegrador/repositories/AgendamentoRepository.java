@@ -11,8 +11,8 @@ import java.util.List;
 
 public interface AgendamentoRepository extends JpaRepository<Agendamento, Long> {
 
-    List<Agendamento> findAgendamentoByHorarioInicio(LocalTime horarioInicio);
-    List<Agendamento> findAgendamentoByHorarioFim(LocalTime horarioFim);
     List<Agendamento> findAgendamentoByDataInicio(LocalDate DataInicio);
+    List<Agendamento> findAgendamentoByHorarioInicio(String horaInicio);
+    List<Agendamento> findAgendamentoByHorarioFim(String horaFim);
     List<Agendamento> findAgendamentoByDataFim(LocalDate DataFim);
 }

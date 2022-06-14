@@ -29,58 +29,26 @@ public class AgendamentoServiceImpl implements AgendamentoService{
     @Override
     public Agendamento salvar(Agendamento agendamento) throws Exception {
 
-        LocalTime horario = null;
-        LocalTime horarioFinal = null;
-        String dataFormatada = null;
-        String dataFormatadaFim = null;
+        String[] horaInicio = agendamento.getHorarioInicio().split(":");
+        String[] horaFim = agendamento.getHorarioFim().split(":");
 
-        List<Agendamento> Horario = agendamentoRepository.findAgendamentoByHorarioInicio(agendamento.getHorarioInicio());
-        List<Agendamento> HorarioFim = agendamentoRepository.findAgendamentoByHorarioFim(agendamento.getHorarioFim());
-        List<Agendamento> Data = agendamentoRepository.findAgendamentoByDataInicio(agendamento.getDataInicio());
-        List<Agendamento> DataFim = agendamentoRepository.findAgendamentoByDataFim(agendamento.getDataFim());
+        Integer horararioInicio = Integer.parseInt(horaInicio[0]);
 
-        for (Agendamento horarioInicio : Horario) {
-            horario = (horarioInicio.getHorarioInicio());
-        }
-        for (Agendamento horarioFim : Horario) {
-            horarioFinal = (horarioFim.getHorarioFim());
+        Integer horararioFim = Integer.parseInt(horaFim[0]);
+
+        if(agendamento.getDataFim().isBefore(agendamento.getDataInicio()) ) {
+            throw new Exception("Não é possível realizar um agendamento com a data de termino menor que a data de inicio");
         }
 
-        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-
-        for (Agendamento data : Data) {
-            dataFormatada = formato.format(data.getDataInicio());
+        if(horararioFim < horararioInicio) {
+            throw new Exception("Não é possível realizar um agendamento com horario final menor que o horario de inicio");
         }
 
-        for (Agendamento dataFim : DataFim) {
-            dataFormatadaFim = formato.format(dataFim.getDataFim());
+        if ((agendamento.getDataInicio().equals(agendamento.getHorarioFim())) ) {
+            throw new Exception ("Não é possível salvar um agendamento com a hora inicio igual a hora de termino");
         }
-
-        if (Horario.size() > 0) {
-            throw new Exception("O horario inicio " + agendamento.getHorarioInicio() + " já foi registrado.");
-        }
-
-        if (HorarioFim.size()> 0) {
-            throw new Exception(("O horario fim " +agendamento.getHorarioFim() + " já foi registrado"));
-        }
-
-        if (Data.size() > 0) {
-            throw new Exception ("A data " + (dataFormatada) + " já foi registrada.");
-        }
-
-        if (agendamento.getDataInicio() != null && agendamento.getDataFim() != null) {
-            agendamento.getDataFim().isBefore(agendamento.getDataInicio());
-            throw new Exception("A data inicio " + formato.format(agendamento.getDataInicio()) + " Tem que ser antes da data final " + formato.format(agendamento.getDataFim()) + ".");
-
-        }
-        if (agendamento.getHorarioInicio() != null && agendamento.getHorarioFim() != null) {
-            agendamento.getHorarioFim().isBefore(agendamento.getHorarioInicio());
-            throw new Exception ("O horario " + agendamento.getHorarioInicio() + " Tem que ser antes do " + agendamento.getHorarioFim() + ".");
-        }
-
         return agendamentoRepository.save(agendamento);
-
-        }
+    }
 
     @Override
     public Agendamento editar(Agendamento agendamento) {
