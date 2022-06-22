@@ -29,12 +29,29 @@ public class AgendamentoServiceImpl implements AgendamentoService{
     @Override
     public Agendamento salvar(Agendamento agendamento) throws Exception {
 
+        List<Agendamento> horarioInicio = agendamentoRepository.findAgendamentoByHorarioInicio(agendamento.getHorarioInicio());
+        List<Agendamento> dataInicio = agendamentoRepository.findAgendamentoByDataInicio(agendamento.getDataInicio());
+        List<Agendamento> dataFim = agendamentoRepository.findAgendamentoByDataFim(agendamento.getDataFim());
+        List<Agendamento> horarioFim = agendamentoRepository.findAgendamentoByHorarioFim(agendamento.getHorarioFim());
+
         String[] horaInicio = agendamento.getHorarioInicio().split(":");
         String[] horaFim = agendamento.getHorarioFim().split(":");
 
         Integer horararioInicio = Integer.parseInt(horaInicio[0]);
 
         Integer horararioFim = Integer.parseInt(horaFim[0]);
+
+        if(dataInicio != null && dataInicio.size() > 0) {
+            if(horarioInicio != null && horarioInicio.size() > 0)
+
+            throw new Exception("Este horário inicial já foi registrado para esse dia!");
+        }
+
+        if(dataFim != null && dataFim.size() > 0) {
+            if(horarioFim != null && horarioFim.size() > 0)
+
+                throw new Exception("Este horário final já foi registrado para esse dia!");
+        }
 
         if(agendamento.getDataFim().isBefore(agendamento.getDataInicio()) ) {
             throw new Exception("Não é possível realizar um agendamento com a data de termino menor que a data de inicio");
@@ -44,7 +61,7 @@ public class AgendamentoServiceImpl implements AgendamentoService{
             throw new Exception("Não é possível realizar um agendamento com horario final menor que o horario de inicio");
         }
 
-        if ((agendamento.getDataInicio().equals(agendamento.getHorarioFim())) ) {
+        if ((agendamento.getHorarioInicio().equals(agendamento.getHorarioFim())) ) {
             throw new Exception ("Não é possível salvar um agendamento com a hora inicio igual a hora de termino");
         }
         return agendamentoRepository.save(agendamento);
