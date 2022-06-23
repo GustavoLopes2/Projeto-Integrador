@@ -11,6 +11,7 @@ import java.util.List;
 
 @RequestMapping(value = "/instrutor")
 @RestController
+@CrossOrigin
 public class InstrutorController {
 
     final InstrutorServiceImpl instrutorService;
