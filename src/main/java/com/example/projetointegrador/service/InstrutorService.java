@@ -14,4 +14,5 @@ public interface InstrutorService {
 
     void deletar(Long id);
 
+    Instrutor buscarInstrutorPorEmail(Instrutor instrutor) throws Exception;
 }

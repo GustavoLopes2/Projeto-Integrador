@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RequestMapping(value = "/instrutor")
+@RequestMapping(value = "/api")
 @RestController
 @CrossOrigin
 public class InstrutorController {
@@ -17,14 +17,21 @@ public class InstrutorController {
     final InstrutorServiceImpl instrutorService;
 
 
-    public InstrutorController(InstrutorServiceImpl instrutorServiceImpl) {
-        this.instrutorService = instrutorServiceImpl;
+    public InstrutorController(InstrutorServiceImpl instrutorService) {
+        this.instrutorService = instrutorService;
     }
 
-    @PostMapping
+    @PostMapping("/salvarUsuario")
     public ResponseEntity<Object> salvarInstrutor(@RequestBody Instrutor instrutor) throws Exception {
         Instrutor response = instrutorService.salvar(instrutor);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
+
+    }
+
+    @PostMapping("/v2/login")
+    public ResponseEntity<Object> sessao(@RequestBody Instrutor instrutor) throws Exception {
+        Instrutor response = instrutorService.buscarInstrutorPorEmail(instrutor);
+        return ResponseEntity.status(HttpStatus.OK).body(HttpStatus.CREATED);
     }
     @DeleteMapping()
     public void deletarInstrutor(Long id) {

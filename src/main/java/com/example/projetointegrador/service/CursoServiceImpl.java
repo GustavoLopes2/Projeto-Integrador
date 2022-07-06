@@ -1,9 +1,11 @@
 package com.example.projetointegrador.service;
 
 import com.example.projetointegrador.models.Curso;
+import com.example.projetointegrador.models.Instrutor;
 import com.example.projetointegrador.repositories.CursoRepository;
 import org.springframework.stereotype.Service;
 
+import javax.el.ELException;
 import java.util.List;
 
 @Service
